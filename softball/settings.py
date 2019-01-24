@@ -25,7 +25,7 @@ SECRET_KEY = '#dby#0vd$pj3fbj^t3&os&t_=((@w97a4__bfa+tgg)v+!r%jk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['forkb-sds.azurewebsites.net']
+ALLOWED_HOSTS = ['forkb-sds.azurewebsites.net','localhost']
 
 
 # Application definition
