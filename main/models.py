@@ -24,3 +24,6 @@ class Score(models.Model):
         return self.team
 
 # Create your models here.
+
+
+# Hashtag
