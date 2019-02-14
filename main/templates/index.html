@@ -1,16 +1,7 @@
 <div>
-<h3>Teams:</h3>
+<h3>Game_Info:</h3>
 </div>
 
-{% for team in latest_team_list %}
-  <li><a href="/{{ team.team_name }}/">{{ team.team_name }}</a></li>
-{% endfor %}
-
-
-<div>
-<h3>Scores:</h3>
-</div>
-
-{% for team in latest_team_list %}
-  <li><a href="/{{ team.team_name }}/">{{ team.team_name }}</a></li>
+{% for game_info in latest_team_list %}
+  <li><a href="/{{ game_info.team }}/">{{ game_info.team }}</a></li>
 {% endfor %}
