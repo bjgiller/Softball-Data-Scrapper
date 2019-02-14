@@ -20,7 +20,6 @@ class Game_Info(models.Model):
     opp_team = models.CharField(max_length=30)
     points = models.IntegerField(default=(-1))
     opp_team = models.IntegerField(default=(-1))
-    venue = models.CharField(max_length=50)
     date_start_time = models.DateTimeField(default=datetime.datetime.now())
     pub_date = models.DateTimeField('date published')
 
