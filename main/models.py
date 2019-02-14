@@ -15,7 +15,7 @@ class Team_RPI(models.Model):
     def __str__(self):
         return self.team_name
 
-class Game_Info(models.Model)
+class Game_Info(models.Model):
     team = models.CharField(max_length=30)
     opp_team = models.CharField(max_length=30)
     points = models.IntegerField(default=(-1))
