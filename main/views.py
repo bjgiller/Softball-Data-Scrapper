@@ -12,3 +12,11 @@ def index(request):
         'latest_team_list': latest_team_list,
     }
     return HttpResponse(template.render(context, request))
+
+def CurrentRanking(request):
+    latest_team_list = Game_Info.objects.order_by('-pub_date')[:5]
+    template = loader.get_template('CurrentRanking.html')
+    context = {
+        'latest_team_list': latest_team_list,
+    }
+    return HttpResponse(template.render(context, request))
