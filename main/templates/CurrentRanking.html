@@ -9,8 +9,8 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 25%;
-  background-color: #f1f1f1;
+  width: 220px;
+  background-color: #6C0017;
   position: fixed;
   height: 100%;
   overflow: auto;
@@ -18,31 +18,37 @@ ul {
 
 li a {
   display: block;
-  color: #000;
+  color: #FFFFFF;
   padding: 8px 16px;
   text-decoration: none;
 }
 
 li a.active {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #f1f1f1;
+  color: black;
 }
 
-li a:hover:not(.active) {
+/* li a:hover:not(.active) {
   background-color: #555;
   color: white;
-}
+} */
+
 </style>
 </head>
 <body>
 
 <ul>
-  <li><a class="active" href="CurrentRanking">CurrentRanking</a></li>
-  <li><a href="index">Team Statistics</a></li>
+  <div align="center">
+      <img src="logo-on-red.png" width="195" height="193" alt="UofA Logo">
+  </div>
+  
+  <ul>
+      <li><a class="active" href="CurrentRanking">Current Ranking</a></li>
+      <li><a href="TeamStatistics">Team Statistics</a></li>
+    </ul>
 </ul>
 
-<div style="margin-left:25%;padding:1px 16px;height:1000px;">
-    <p>Current Ranking Page</p>
+<div style="margin-left:220px;padding:1px 16px;height:1000px;">
   <h2>Fixed Full-height Side Nav</h2>
   <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
   <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
@@ -54,7 +60,10 @@ li a:hover:not(.active) {
   <p>Some text..</p>
   <p>Some text..</p>
   <p>Some text..</p>
+
+  <!-- <img src="images/pengiun-clipart-1.jpg" width="195" height="193"> -->
 </div>
+
 
 </body>
 </html>

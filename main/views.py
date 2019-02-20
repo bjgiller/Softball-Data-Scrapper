@@ -5,9 +5,9 @@ from main.models import Game_Info,Team_RPI
 
 # Create your views here.
 # Ross made a really cool comment
-def index(request):
+def TeamStatistics(request):
     latest_team_list = Game_Info.objects.order_by('-pub_date')[:5]
-    template = loader.get_template('index.html')
+    template = loader.get_template('TeamStatistics.html')
     context = {
         'latest_team_list': latest_team_list,
     }
