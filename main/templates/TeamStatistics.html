@@ -38,9 +38,10 @@ li a.active {
 <body>
 
 <ul>
-  <div align="center">
-      <!-- <img src="img/logo-on-red.png" width="195" height="193" alt="UofA Logo"> -->
-  </div>
+    <div align="center">
+        {% load static %}
+        <img src="{% static 'logo-on-red.png' %}" width="195" height="193">
+      </div>
   
   <li><a href="CurrentRanking">Current Ranking</a></li>
   <li><a class="active" href="TeamStatistics">Team Statistics</a></li>
