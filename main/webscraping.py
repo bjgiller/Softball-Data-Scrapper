@@ -1,4 +1,4 @@
-import requests
+import requests,datetime
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from main.models import Game_Info
@@ -6,9 +6,30 @@ from main.models import Game_Info
 class Web_Scraping:
     def __init__(self,day,month,year):
 
+        self.website_naming = {
+            "NCAA":{
+                "url":[
+                    "https://www.ncaa.com/scoreboard/softball/d1/",
+                    "/all-conf"
+                ],
+                'everythingelse':[
+                    "gamePod gamePod-type-game status-final",
+                    "gamePod-game-team-name",
+                    "gamePod-game-team-score"
+                ]
+            },
+            "ESPN":{
+                "url":[
+                    "http://cdn.espn.com/college-sports/scoreboard?date="20190222&sport=current"
+                ]
+            }
+        }
+
         self.day = day
         self.month = month
         self.year = year
+
+        self.date_start_time = datetime.datetime(self.year,self.month,self.day)
 
         if len(str(self.day)) == 1:
             self.day = "0" + str(self.day)
@@ -34,6 +55,7 @@ class Web_Scraping:
                 game_dict = {}
                 for k in range(len(teams)):
                     game_dict.update({teams[k]:scores[k]})
+                game_dict.update({"date_start_time":self.date_start_time})
             self.game_list.append(game_dict)
 
     def get_game_list(self):

@@ -1,13 +1,22 @@
 from django.utils import timezone
+from django.db.models import Q
 from main.models import Game_Info
 
 class DB_Game_Interface:
     def __init__(self):
         self.g = None
 
+
+    def get_by_date_start_time(self,date_start_time):
+        return Game_Info.objects.filter(date_start_time=date_start_time)
+
+    def get_by_team(self,team):
+        return Game_Info.objects.filter(Q(team=team) | Q(opp_team=team))
+
+
+
     def create_single_game_info(self,team,opp_team,points,opp_points,date_start_time):
-        self.g = Game_Info(team=team,opp_team=opp_team,points=points,opp_points=opp_points,date_start_time=date_start_time,pub_date=timezone.now())
-        self.g.save()
+        self._add_to_bd(team,opp_team,points,opp_points,date_start_time,False)
 
     def create_games_from_list(self,game_list):
         #will follow the structure of [game{"team name":score,"team_name",score},game{"team name":score,"team_name",score}]
@@ -17,8 +26,21 @@ class DB_Game_Interface:
             team2 = list(dict.keys())[1]
             score1 = dict.get(team1)
             score2 = dict.get(team2)
+            date_start_time = dict.get("date_start_time")
 
             print(team1 + "|" + score1 + "|" + team2 + "|" + score2)
 
-            self.g = Game_Info(team=team1,opp_team=team2,points=score1,opp_points=score2,date_start_time=timezone.now(),pub_date=timezone.now())
+            self._add_to_db(team1,team2,score1,score2,date_start_time,False)
+
+    def _add_to_db(self,team,opp_team,points,opp_points,date_start_time,override):
+        if not override:
+            if not Game_Info.objects.filter(team=team,opp_team=opp_team,points=points,opp_points=opp_points,date_start_time=date_start_time).exists():
+                self.g = Game_Info(team=team,opp_team=opp_team,points=points,opp_points=opp_points,date_start_time=date_start_time,pub_date=timezone.now())
+                self.g.save()
+        else:
+            self.g = Game_Info(team=team,opp_team=opp_team,points=points,opp_points=opp_points,date_start_time=date_start_time,pub_date=timezone.now())
             self.g.save()
+
+    def clear_table(self):
+        for i in Game_Info.objects.all():
+            i.delete()
