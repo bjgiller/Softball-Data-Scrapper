@@ -1,0 +1,82 @@
+<html>
+<head>
+<style>
+body {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 220px;
+  background-color: #6C0017;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+li a {
+  display: block;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+/* li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+} */
+
+table, th, td {
+  border: 1px solid black;
+}
+
+</style>
+</head>
+<body>
+
+<ul>
+  <div align="center">
+    {% load static %}
+    <img src="{% static 'logo-on-red.png' %}" width="195" height="193">
+  </div>
+  
+  <ul>
+      <li><a class="active" href="CurrentRanking">Current Ranking</a></li>
+      <li><a href="TeamStatistics">Team Statistics</a></li>
+    </ul>
+</ul>
+
+<div style="margin-left:220px;padding:1px 16px;height:1000px;">
+  <h2>Current Rankings</h2>
+  
+  <table style="width:500px">
+    <tr>
+      <th>Team Name</th>
+      <th>Record</th>
+      <th>RPI</th>
+    </tr>
+    <tr>
+      <td>Razorbacks</td>
+      <td>7/8</td>
+      <td>791</td>
+    </tr>
+    <tr>
+      <td>Chargers</td>
+      <td>7/11</td>
+      <td>702</td>
+    </tr>
+  </table>
+
+  <!-- <img src="images/pengiun-clipart-1.jpg" width="195" height="193"> -->
+</div>
+
+
+</body>
+</html>
