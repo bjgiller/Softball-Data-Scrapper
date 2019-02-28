@@ -33,6 +33,10 @@ li a.active {
   color: white;
 } */
 
+table, th, td {
+  border: 1px solid black;
+}
+
 </style>
 </head>
 <body>
@@ -48,17 +52,46 @@ li a.active {
 </ul>
 
 <div style="margin-left:220px;padding:1px 16px;height:1000px;">
-  <h2>Fixed Full-height Side Nav</h2>
-  <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
-  <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
-  <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
+  <h2>Team Statistics</h2>
+  <h3>Search for a team</h3>
+  
+  <form autocomplete="off" action="/action_page.php">
+    <div class="autocomplete" style="width:300px;">
+      <input id="myInput" type="text" name="myTeam" placeholder="Team">
+      <input type="submit">
+    </div>
+    
+  </form>
+
+
+  <table style="width:500px">
+    <tr>
+      <th colspan="5">Razorbacks</th>
+    </tr>
+    <tr>
+      <th>Home</th>
+      <th>Away</th>
+      <th>Home Score</th>
+      <th>Away Score</th>
+      <th>Date</th>
+    </tr>
+    <tr>
+      <td>Razorbacks</td>
+      <td>Wildcats</td>
+      <td>8</td>
+      <td>2</td>
+      <td>July 1st</td>
+    </tr>
+    <tr>
+      <td>Tigers</td>
+      <td>Razorbacks</td>
+      <td>5</td>
+      <td>6</td>
+      <td>April 14th</td>
+    </tr>
+  </table>
+  
+  
 
   <!-- <img src="images/pengiun-clipart-1.jpg" width="195" height="193"> -->
 </div>

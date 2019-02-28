@@ -33,6 +33,10 @@ li a.active {
   color: white;
 } */
 
+table, th, td {
+  border: 1px solid black;
+}
+
 </style>
 </head>
 <body>
@@ -50,17 +54,25 @@ li a.active {
 </ul>
 
 <div style="margin-left:220px;padding:1px 16px;height:1000px;">
-  <h2>Fixed Full-height Side Nav</h2>
-  <h3>Try to scroll this area, and see how the sidenav sticks to the page</h3>
-  <p>Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin, the sidenav will overlay/sit on top of this div.</p>
-  <p>Also notice that we have set overflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 links inside of it).</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
-  <p>Some text..</p>
+  <h2>Current Rankings</h2>
+  
+  <table style="width:500px">
+    <tr>
+      <th>Team Name</th>
+      <th>Record</th>
+      <th>RPI</th>
+    </tr>
+    <tr>
+      <td>Razorbacks</td>
+      <td>7/8</td>
+      <td>791</td>
+    </tr>
+    <tr>
+      <td>Chargers</td>
+      <td>7/11</td>
+      <td>702</td>
+    </tr>
+  </table>
 
   <!-- <img src="images/pengiun-clipart-1.jpg" width="195" height="193"> -->
 </div>
