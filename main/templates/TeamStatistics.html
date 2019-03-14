@@ -90,6 +90,8 @@ table, th, td {
     
   </form> -->
 
+  <script>console.log({})
+  </script>
   
   <form autocomplete="off" action="" method="POST">
       <div class="autocomplete" style="width:300px;">
@@ -101,7 +103,7 @@ table, th, td {
     </form>
 
 
-  <table style="width:500px">
+  <!-- <table style="width:500px">
     <tr>
       <th colspan="5">Razorbacks</th>
     </tr>
@@ -126,7 +128,29 @@ table, th, td {
       <td>6</td>
       <td>April 14th</td>
     </tr>
-  </table>
+  </table> -->
+  
+  <table style="width:500px">
+      <tr>
+        <th colspan="5">{{team_name}}</th>
+      </tr>
+      <tr>
+        <th>Home</th>
+        <th>Away</th>
+        <th>Home Score</th>
+        <th>Away Score</th>
+        <!-- <th>Date</th> -->
+      </tr>
+      {% for game_info in latest_team_list %}
+      <tr>
+        <td>{{game_info.team}}</td>
+        <td>{{game_info.opp_team}}</td>
+        <td>{{game_info.points}}</td>
+        <td>{{game_info.opp_points}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
 </div>
 
 <script>
