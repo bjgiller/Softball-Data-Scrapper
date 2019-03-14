@@ -82,13 +82,23 @@ table, th, td {
   <h2>Team Statistics</h2>
   <h3>Search statistics for a team</h3>
   
-  <form autocomplete="off" action="">
+  <!-- <form autocomplete="off" action="">
     <div class="autocomplete" style="width:300px;">
       <input id="searchBar" type="text" name="myTeam" placeholder="Team Name">
       <input type="submit">
     </div>
     
-  </form>
+  </form> -->
+
+  
+  <form autocomplete="off" action="" method="POST">
+      <div class="autocomplete" style="width:300px;">
+        {% csrf_token %}
+        {{form.team}}
+        <input type="submit">
+      </div>
+      
+    </form>
 
 
   <table style="width:500px">
@@ -120,7 +130,7 @@ table, th, td {
 </div>
 
 <script>
-  
+  // TODO: SCRIPT TO REWRITE
     function autocomplete(inp, arr) {
       /*the autocomplete function takes two arguments,
       the text field element and an array of possible autocompleted values:*/
