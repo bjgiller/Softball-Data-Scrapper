@@ -18,12 +18,15 @@ class Web_Scraping:
                     "gamePod-game-team-score"
                 ]
             },
+        }
+
+        '''
             "ESPN":{
                 "url":[
                     "http://cdn.espn.com/college-sports/scoreboard?date="20190222&sport=current"
                 ]
             }
-        }
+        '''
 
         self.day = day
         self.month = month
