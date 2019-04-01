@@ -1,50 +1,13 @@
 <html>
 <head>
-<style>
-body {
-  margin: 0;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 220px;
-  background-color: #6C0017;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-}
-
-li a {
-  display: block;
-  color: #FFFFFF;
-  padding: 8px 16px;
-  text-decoration: none;
-}
-
-li a.active {
-  background-color: #f1f1f1;
-  color: black;
-}
-
-/* li a:hover:not(.active) {
-  background-color: #555;
-  color: white;
-} */
-
-table, th, td {
-  border: 1px solid black;
-}
-
-</style>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
 
 <ul>
   <div align="center">
-    {% load static %}
-    <img src="{% static 'logo-on-red.png' %}" width="195" height="193">
+    <img src="{% static 'logo.png' %}" width="220" height="163">
   </div>
   
   <ul>
