@@ -38,11 +38,12 @@ class Web_Scraping:
             self.day = "0" + str(self.day)
         if len(str(self.month)) == 1:
             self.month = "0" + str(self.month)
-
         self.url = "https://www.ncaa.com/scoreboard/softball/d1/"+str(self.year)+"/"+str(self.month)+"/"+str(self.day)+"/all-conf"
-        print("going to url: "+self.url)
+        # print("going to url: "+self.url)
 
         self.page = requests.get(self.url, headers=self.get_random_user_agent())
+        # print("got to url: "+self.page.url)
+        # print("got satus_code: "+ str(self.page.status_code))
         self.html = BeautifulSoup(self.page.text,'lxml')
         self.games = self.html.findAll("div",{"class":"gamePod gamePod-type-game status-final"})
 
