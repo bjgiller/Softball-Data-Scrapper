@@ -10,7 +10,7 @@ class Team(models.Model):
 class Team_RPI(models.Model):
     #team_name = models.ForeignKey(Team, on_delete=models.CASCADE)
     team_name = models.CharField(max_length=30)
-    rpi = models.IntegerField(default=(-1))
+    rpi = models.FloatField(default=(-1))
 
     def __str__(self):
         return self.team_name
