@@ -1,10 +1,28 @@
 from django.utils import timezone
 from django.db.models import Q
-from main.models import Game_Info
+from main.models import Team_RPI
 
-class DB_Game_Interface:
+class DB_RPI_Interface:
     def __init__(self):
         self.g = None
+
+    def create_single_rating_info(self,team,rpi):
+        self._add_to_db(team,rpi,False)
+
+    def _add_to_db(self,team,rpi,override):
+        if not override:
+            if not Team_RPI.objects.filter(team_name=team,rpi = rpi).exists():
+                self.g = Team_RPI(team_name=team,rpi = rpi)
+                self.g.save()
+        else:
+            self.g = Team_RPI(team_name=team,rpi = rpi)
+            self.g.save()
+
+    def clear_table(self):
+        for i in Team_RPI.objects.all():
+            i.delete()
+
+    '''
 
     def get_by_date_start_time(self,date_start_time):
         return Game_Info.objects.filter(date_start_time=date_start_time)
@@ -55,6 +73,8 @@ class DB_Game_Interface:
     def clear_table(self):
         for i in Game_Info.objects.all():
             i.delete()
+
+    '''
 
    
 
