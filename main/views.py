@@ -28,12 +28,13 @@ def TeamStatistics(request):
         return HttpResponse(template.render(context, request))
     else:
         db = DB_Game_Interface()
+        #ws = Web_Scraping(10,4,2019)
+        #print(ws.get_pre_game_list())
 
-        ws = Past(1,2,2019)
-
+        ws = Past(1,2,2019,None,10,2,2019)
+        '''
         for i in db.get_all_teams():
-            RPI_Calculation(i)
-
+            RPI_Calculation(i)'''
         latest_team_list = db.get_by_team("Arkansas")
         template = loader.get_template('TeamStatistics.html')
         context = {

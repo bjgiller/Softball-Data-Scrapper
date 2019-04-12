@@ -6,16 +6,16 @@ class DB_RPI_Interface:
     def __init__(self):
         self.g = None
 
-    def create_single_rating_info(self,team,rpi):
-        self._add_to_db(team,rpi,False)
+    def create_single_rating_info(self,team,wp,owp,oopw,bonus,rpi):
+        self._add_to_db(team,wp,owp,oopw,bonus,rpi,False)
 
-    def _add_to_db(self,team,rpi,override):
+    def _add_to_db(self,team,wp,owp,oopw,bonus,rpi,override):
         if not override:
-            if not Team_RPI.objects.filter(team_name=team,rpi = rpi).exists():
-                self.g = Team_RPI(team_name=team,rpi = rpi)
+            if not Team_RPI.objects.filter(team_name=team,wp=wp,owp=owp,oopw=oopw,bonus=bonus,rpi=rpi).exists():
+                self.g = Team_RPI(team_name=team,wp=wp,owp=owp,oopw=oopw,bonus=bonus,rpi=rpi)
                 self.g.save()
         else:
-            self.g = Team_RPI(team_name=team,rpi = rpi)
+            self.g = Team_RPI(team_name=team,wp=wp,owp=owp,oopw=oopw,bonus=bonus,rpi=rpi)
             self.g.save()
 
     def clear_table(self):
@@ -40,9 +40,9 @@ class DB_RPI_Interface:
         for i in range(len(allGames)):
             setAllTeams.update({allGames[i].team})
             setAllTeams.update({allGames[i].opp_team})
-        
+
         return setAllTeams
-              
+
 
     def create_single_game_info(self,team,opp_team,points,opp_points,date_start_time):
         self._add_to_bd(team,opp_team,points,opp_points,date_start_time,False)
@@ -75,6 +75,3 @@ class DB_RPI_Interface:
             i.delete()
 
     '''
-
-   
-

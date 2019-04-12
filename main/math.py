@@ -12,12 +12,14 @@ class RPI_Calculation:
         print("OWP: ",self.owp)
         self.oowp = self.opp_opp_win_percentage()
         print("OOWP: ",self.oowp)
-        self.test2.create_single_rating_info(self.team,((self.wp * .25) + (self.owp * .5) + (self.oowp *.25)))
+        self.bonus = 0
+        self.test2.create_single_rating_info(self.team,self.wp,self.owp,self.oowp,self.bonus,((self.wp * .25) + (self.owp * .5) + (self.oowp *.25)))
 
     def win_percentage(self):
-          totalGames = len(self.test1.get_by_team(self.team))
+          dbquarry = self.test1.get_by_team(self.team)
+          totalGames = len(dbquarry)
           wins = 0
-          for i in self.test1.get_by_team(self.team):
+          for i in dbquarry:
               if (self.team == i.team):
                   if (i.points > i.opp_points):
                       wins = wins + 1
@@ -25,7 +27,7 @@ class RPI_Calculation:
                   if (i.points < i.opp_points):
                       wins = wins + 1
           return (wins/totalGames)
-    
+
     def win_percentage_mod(self,team,list):
           totalGames = len(list)
           if (totalGames != 0):
@@ -42,11 +44,12 @@ class RPI_Calculation:
               return 0
 
     def opp_win_percentage(self):
-          totalGames = len(self.test1.get_by_team(self.team))
+          dbquarry = self.test1.get_by_team(self.team)
+          totalGames = len(dbquarry)
           #Subtract one from totalGames every time we find that team
           #When calcuating the oppon
           total = 0
-          for i in self.test1.get_by_team(self.team):
+          for i in dbquarry:
               tempList = []
               if (self.team == i.team):
                   for j in self.test1.get_by_team(i.opp_team):
@@ -61,11 +64,13 @@ class RPI_Calculation:
           return (total/totalGames)
 
     def opp_win_percentage_mod(self,team):
-          totalGames = len(self.test1.get_by_team(team))
+
+          dbquarry = self.test1.get_by_team(self.team)
+          totalGames = len(dbquarry)
           #Subtract one from totalGames every time we find that team
           #When calcuating the oppon
           total = 0
-          for i in self.test1.get_by_team(team):
+          for i in dbquarry:
               tempList = []
               if (team == i.team):
                   for j in self.test1.get_by_team(i.opp_team):
@@ -80,11 +85,12 @@ class RPI_Calculation:
           return (total/totalGames)
 
     def opp_opp_win_percentage(self):
-        totalGames = len(self.test1.get_by_team(self.team))
+        dbquarry = self.test1.get_by_team(self.team)
+        totalGames = len(dbquarry)
         #Subtract one from totalGames every time we find that team
         #When calcuating the oppon
         total = 0
-        for i in self.test1.get_by_team(self.team):
+        for i in dbquarry:
             if (self.team == i.team):
                 total = total + self.opp_win_percentage_mod(i.opp_team)
             elif (self.team == i.opp_team):
