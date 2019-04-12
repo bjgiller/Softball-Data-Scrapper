@@ -9,7 +9,7 @@
   <div align="center">
     <img src="{% static 'logo.png' %}" width="220" height="163">
   </div>
-  
+
   <ul>
       <li><a class="active" href="CurrentRanking">Current Ranking</a></li>
       <li><a href="TeamStatistics">Team Statistics</a></li>
@@ -18,18 +18,18 @@
 
 <div style="margin-left:220px;padding:1px 16px;height:1000px;">
   <h2>Current Rankings</h2>
-  
+
   <table style="width:500px">
     <tr>
       <th>Team Name</th>
-      <th>Record</th>
       <th>RPI</th>
     </tr>
+    {% for team_info in latest_team_list %}
     <tr>
-      <td>Razorbacks</td>
-      <td>7/8</td>
-      <td>791</td>
+      <td>{{team_info.team_name}}</td>
+      <td>{{team_info.rpi}}</td>
     </tr>
+    {% endfor %}
     <tr>
       <td>Chargers</td>
       <td>7/11</td>
