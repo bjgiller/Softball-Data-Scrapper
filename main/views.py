@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
-from main.models import Game_Info,Team_RPI
+from main.models import Game_Info,Team_RPI,Team
 from main.dbgame import DB_Game_Interface
-from main.webscraping import Web_Scraping
+from main.dbTeams import DB_Teams_Interface
+from main.webscorescraping import Web_Scraping
+from main.webteamscraping import Web_Team_Scraping
 from.forms import TeamSearch
 from main.math import RPI_Calculation
 from main.dbRating import DB_RPI_Interface
@@ -27,11 +29,17 @@ def TeamStatistics(request):
         }
         return HttpResponse(template.render(context, request))
     else:
+        db = DB_Teams_Interface()
+        wts = Web_Team_Scraping()
+
+        db.create_teams_from_dict(wts.get_team_info())
+
         db = DB_Game_Interface()
-        #ws = Web_Scraping(10,4,2019)
+        #RPI_Calculation("Arkansas")
+        ws = Web_Scraping(14,4,2019)
         #print(ws.get_pre_game_list())
 
-        ws = Past(1,2,2019,None,10,2,2019)
+        #ws = Past(1,2,2019,None,10,2,2019)
         '''
         for i in db.get_all_teams():
             RPI_Calculation(i)'''

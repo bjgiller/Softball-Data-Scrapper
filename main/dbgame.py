@@ -15,6 +15,9 @@ class DB_Game_Interface:
     def get_by_date_range(self,date_start_time,date_end_time):
         return Game_Info.objects.filter(date_start_time=date_start_time)
 
+    def get_all_games(self):
+        return Game_Info.objects.all()
+
     def get_all_teams(self):
         allGames = Game_Info.objects.all()
         setAllTeams = {""}
@@ -22,9 +25,9 @@ class DB_Game_Interface:
         for i in range(len(allGames)):
             setAllTeams.update({allGames[i].team})
             setAllTeams.update({allGames[i].opp_team})
-        
+
         return setAllTeams
-              
+
 
     def create_single_game_info(self,team,opp_team,points,opp_points,date_start_time):
         self._add_to_bd(team,opp_team,points,opp_points,date_start_time,False)
@@ -55,6 +58,3 @@ class DB_Game_Interface:
     def clear_table(self):
         for i in Game_Info.objects.all():
             i.delete()
-
-   
-

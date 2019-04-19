@@ -3,7 +3,8 @@ from django.db import models
 
 class Team(models.Model):
     team_name = models.CharField(max_length=30)
-    conference = models.CharField(max_length=10)
+    conference = models.CharField(max_length=30)
+    division = models.CharField(max_length=2)
 
     def __str__(self):
         return self.team_name
@@ -25,13 +26,15 @@ class Game_Info(models.Model):
     opp_team = models.CharField(max_length=30)
     points = models.IntegerField(default=(-1))
     opp_points = models.IntegerField(default=(-1))
-    completed = models.BooleanField(default=False)
     date_start_time = models.DateTimeField(default=datetime.datetime.now())
     pub_date = models.DateTimeField('date published')
 
     def __str__(self):
         return (self.team + " | " + self.opp_team)
 
+class Completed(models.Model):
+    date = models.DateTimeField(default=datetime.datetime.now())
+    completed = models.BooleanField(default=False)
 # Create your models here.
 
 

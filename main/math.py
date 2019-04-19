@@ -7,13 +7,58 @@ class RPI_Calculation:
         self.test1 = dbgame.DB_Game_Interface()
         self.test2 = dbRating.DB_RPI_Interface()
         self.wp = self.win_percentage()
-        #print("WP: ",self.wp)
+        print("WP: ",self.wp)
         self.owp = self.opp_win_percentage()
         print("OWP: ",self.owp)
         self.oowp = self.opp_opp_win_percentage()
         print("OOWP: ",self.oowp)
         self.bonus = 0
         self.test2.create_single_rating_info(self.team,self.wp,self.owp,self.oowp,self.bonus,((self.wp * .25) + (self.owp * .5) + (self.oowp *.25)))
+        self.cal_bonus()
+        temp = self.test2.get_by_team(self.team)[0]
+        print("we upading with :",self.bonus)
+        temp.bonus = self.bonus
+        temp.save()
+
+
+    def cal_bonus(self):
+        top25 = self.test2.get_top(25)
+        intop25 = False
+        for i in top25:
+            if (i.team_name == self.team):
+                intop25 = True
+                break
+        if (not intop25):
+            dbquarry = self.test1.get_by_team(self.team)
+            for i in dbquarry:
+                winner = self.get_winner(i)
+                for j in top25:
+                    if (j.team_name == winner):
+                        print('we adding!!!')
+                        self.bonus = self.bonus + 1
+        #------------------------------------------------
+        bottom75 = self.test2.get_bottom(75)
+        inbottom75 = False
+        for i in bottom75:
+            if (i.team_name == self.team):
+                inbottom75 = True
+                break
+        if (not inbottom75):
+            dbquarry = self.test1.get_by_team(self.team)
+            for i in dbquarry:
+                winner = self.get_winner(i)
+                for j in top25:
+                    if (j.team_name == winner):
+                        self.bonus = self.bonus - 1
+                        print('we subtracting!!!')
+
+    def get_winner(self,game):
+        if (game.points < game.opp_points):
+            return game.opp_team
+        elif (game.points > game.opp_points):
+            return game.team
+        else:
+            return None
 
     def win_percentage(self):
           dbquarry = self.test1.get_by_team(self.team)

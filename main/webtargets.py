@@ -1,7 +1,7 @@
 #this class puts some of dbgame and webscraping together in a much more friendly way to uses
 import datetime
 from main.dbgame import DB_Game_Interface
-from main.webscraping import Web_Scraping
+from main.webscorescraping import Web_Scraping
 
 class Past:
     def __init__(self,day,month,year,dtime=None,today=datetime.datetime.now().day,tomonth=datetime.datetime.now().month,toyear=datetime.datetime.now().year,todtime=None):
