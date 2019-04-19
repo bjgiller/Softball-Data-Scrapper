@@ -1,7 +1,7 @@
 import requests,datetime
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from main.models import Game_Info
+from main.models import Game_Info, Completed
 
 class Web_Scraping:
     def __init__(self,day,month,year,dtime=None):
@@ -28,7 +28,6 @@ class Web_Scraping:
             }
         '''
         if ((day >= 1 and day <= 31) and (month >= 1 and month <= 12) and (year >= 2010)):
-            print("Hello")
             self.day = day
             self.month = month
             self.year = year
@@ -53,7 +52,13 @@ class Web_Scraping:
         # print("got to url: "+self.page.url)
         # print("got satus_code: "+ str(self.page.status_code))
         self.html = BeautifulSoup(self.page.text,'lxml')
+
         self.games = self.html.findAll("div",{"class":"gamePod gamePod-type-game status-final"})
+        self.pre_games = self.html.findAll("div",{"class":"gamePod gamePod-type-game status-pre"})
+        self.nostart = self.html.findAll("div",{"class":"gamePod gamePod-type-game status-nostart"})
+        self.pre_games = self.pre_games + self.nostart
+        print(self.pre_games)
+
 
         self.game_list = []
         for i in self.games:
@@ -70,8 +75,31 @@ class Web_Scraping:
                 game_dict.update({"date_start_time":self.date_start_time})
             self.game_list.append(game_dict)
 
+        self.game_list_incomplete = []
+        print(self.pre_games)
+        for i in self.pre_games:
+            teams = i.findAll("span",{"class":"gamePod-game-team-name"})
+            scores = i.findAll("span",{"class":"gamePod-game-team-score"})
+            for j in range(len(teams)):
+                teams[j] = teams[j].getText()
+                print(teams[j])
+            for j in range(len(scores)):
+                scores[j] = scores[j].getText()
+                print(scores[j])
+            if len(teams) == len(scores):
+                game_dict = {}
+                for k in range(len(teams)):
+                    game_dict.update({teams[k]:scores[k]})
+                game_dict.update({"date_start_time":self.date_start_time})
+            self.game_list_incomplete.append(game_dict)
+
+        print(self.game_list_incomplete)
+
     def get_game_list(self):
         return self.game_list
+
+    def get_pre_game_list(self):
+        return self.game_list_incomplete
 
     def get_random_user_agent(self):
         ua = UserAgent()
