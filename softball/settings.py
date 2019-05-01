@@ -16,7 +16,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
+#BROKER_URL = 'redis://localhost:6379'
+#BROKER_URL = 'redis://localhost:6379' #and add this app:
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -34,7 +36,7 @@ ALLOWED_HOSTS = ['forkb-sds.azurewebsites.net','localhost']
 
 INSTALLED_APPS = [
     'main.apps.MainConfig',
-    'background_task',
+    'django_celery_results',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,4 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+'''BROKER_URL = 'redis://127.0.0.1:6379/0'
+BROKER_TRANSPORT = 'redis'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+'''
 STATIC_URL = '/static/'

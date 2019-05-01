@@ -1,4 +1,3 @@
-from background_task import background
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
@@ -11,12 +10,10 @@ from.forms import TeamSearch
 from main.math import RPI_Calculation
 from main.dbRating import DB_RPI_Interface
 from main.webtargets import Past
-import main.tasks
 
 # Create your views here.
 # Ross made a really cool comment
 def TeamStatistics(request):
-    main.tasks.daily()
     if request.method == 'POST':
         searched_team = request.POST['team']
         # print(searched_team)
