@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# CELERY STUFF
+BROKER_URL = 'redis://localhost:6379'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -32,6 +34,7 @@ ALLOWED_HOSTS = ['forkb-sds.azurewebsites.net','localhost']
 
 INSTALLED_APPS = [
     'main.apps.MainConfig',
+    'background_task',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

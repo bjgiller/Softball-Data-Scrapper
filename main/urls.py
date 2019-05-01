@@ -1,4 +1,6 @@
 from django.urls import path
+from background_task import tasks
+import main.tasks
 
 from . import views
 
