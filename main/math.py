@@ -9,17 +9,19 @@ class RPI_Calculation:
         self.dbGameInt = dbgame.DB_Game_Interface()
 
     def cal_rpi(self):
+        print("RPI TEAM: ",self.team)
         #print(self.dbGameInt.get_by_date_start_time_team("UCLA", datetime.datetime(2019,3,9)))
-        self.wp = self.win_percentage()
-        print("WP: ",self.wp)
-        self.owp = self.opp_win_percentage()
-        print("OWP: ",self.owp)
-        self.oowp = self.opp_opp_win_percentage()
-        print("OOWP: ",self.oowp)
-        self.bonus = 0
-        self.dbRPIInt.create_single_rating_info(self.team,self.wp,self.owp,self.oowp,self.bonus,((self.wp * .25) + (self.owp * .5) + (self.oowp *.25)))
+        self.wp = round(self.win_percentage(),4)
+        #print("WP: ",self.wp)
+        self.owp = round(self.opp_win_percentage(),4)
+        #print("OWP: ",self.owp)
+        self.oowp = round(self.opp_opp_win_percentage(),4)
+        #print("OOWP: ",self.oowp)
+        self.bonus=-1
+        self.dbRPIInt.create_single_rating_info(self.team,self.wp,self.owp,self.oowp,self.bonus,round(((self.wp * .25) + (self.owp * .5) + (self.oowp *.25)),4))
 
     def cal_bonus(self):
+        print("BONUS TEAM: ",self.team)
         top25 = self.dbRPIInt.get_top(25)
         #print(top25)
         top26to50 = self.dbRPIInt.get_top_by_range(26,50)
@@ -61,12 +63,12 @@ class RPI_Calculation:
                         if (winner == j.team_name):
                             p75 += 1
 
-            temp = self.dbRPIInt.get_by_team(self.team)[0]
-            #print("we upading with :",self.bonus)
-            temp.bonus = (b25*0.0026)+(b50*0.002)+(b75*0.0013)
-            temp.penalty = (p25*0.0026)+(p50*0.002)+(p75*0.0013)
-            #temp.adj_rpi = (temp.rpi+temp.bonus+temp.penalty)
-            temp.save()
+        temp = self.dbRPIInt.get_by_team(self.team)[0]
+        #print("we upading with :",self.bonus)
+        temp.bonus = round((b25*0.0026)+(b50*0.002)+(b75*0.0013),4)
+        temp.penalty = round((p25*-0.0026)+(p50*-0.002)+(p75*-0.0013),4)
+        temp.adj_rpi = round((temp.rpi+temp.bonus+temp.penalty),4)
+        temp.save()
 
             #print('b25: ',b25,'b50: ',b50,'b75: ',b75,'p25: ',p25,'p50: ',p50,'p75: ',p75)
 

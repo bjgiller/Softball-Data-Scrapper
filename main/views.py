@@ -45,6 +45,8 @@ def TeamStatistics(request):
         #RPI_Calculation("Kansas")
         #RPI_Calculation("Duke")
         #RPI_Calculation("Wisconsin")
+        for i in db.get_all_teams():
+            RPI_Calculation(i).cal_rpi()
 
         for i in db.get_all_teams():
             RPI_Calculation(i).cal_bonus()
