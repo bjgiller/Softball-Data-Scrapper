@@ -41,13 +41,13 @@ def TeamStatistics(request):
         #print(ws.get_pre_game_list())
 
         #ws = Past(2,2,2018,None,2,8,2018)
-        #RPI_Calculation("Arkansas")
+        #RPI_Calculation("Arkansas").cal_bonus()
         #RPI_Calculation("Kansas")
         #RPI_Calculation("Duke")
         #RPI_Calculation("Wisconsin")
 
         for i in db.get_all_teams():
-            RPI_Calculation(i)
+            RPI_Calculation(i).cal_bonus()
         latest_team_list = db.get_by_team("Arkansas").order_by('-date_start_time')
         template = loader.get_template('TeamStatistics.html')
         context = {

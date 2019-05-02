@@ -25,8 +25,10 @@
       <th>WP</th>
       <th>OWP</th>
       <th>OOWP</th>
-      <th>Bonus</th>
       <th>RPI</th>
+      <th>Bonus</th>
+      <th>Penalty</th>
+      <th>Adjusted RPI</th>
     </tr>
     {% for team_info in latest_team_list %}
     <tr>
@@ -34,8 +36,10 @@
       <td>{{team_info.wp}}</td>
       <td>{{team_info.owp}}</td>
       <td>{{team_info.oowp}}</td>
-      <td>{{team_info.bonus}}</td>
       <td>{{team_info.rpi}}</td>
+      <td>{{team_info.bonus}}</td>
+      <td>{{team_info.penalty}}</td>
+      <td>{{team_info.adj_rpi}}</td>
     </tr>
     {% endfor %}
   </table>

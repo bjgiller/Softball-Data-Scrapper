@@ -5,9 +5,11 @@ import datetime
 class RPI_Calculation:
     def __init__(self,team):
         self.team = team
-        self.dbGameInt = dbgame.DB_Game_Interface()
-        #print(self.dbGameInt.get_by_date_start_time_team("UCLA", datetime.datetime(2019,3,9)))
         self.dbRPIInt = dbRating.DB_RPI_Interface()
+        self.dbGameInt = dbgame.DB_Game_Interface()
+
+    def cal_rpi(self):
+        #print(self.dbGameInt.get_by_date_start_time_team("UCLA", datetime.datetime(2019,3,9)))
         self.wp = self.win_percentage()
         print("WP: ",self.wp)
         self.owp = self.opp_win_percentage()
@@ -17,9 +19,9 @@ class RPI_Calculation:
         self.bonus = 0
         self.dbRPIInt.create_single_rating_info(self.team,self.wp,self.owp,self.oowp,self.bonus,((self.wp * .25) + (self.owp * .5) + (self.oowp *.25)))
 
-
     def cal_bonus(self):
         top25 = self.dbRPIInt.get_top(25)
+        #print(top25)
         top26to50 = self.dbRPIInt.get_top_by_range(26,50)
         top51to75 = self.dbRPIInt.get_top_by_range(51,75)
 
@@ -27,43 +29,46 @@ class RPI_Calculation:
         bottom26to50 = self.dbRPIInt.get_bottom_by_range(26,50)
         bottom51to75 = self.dbRPIInt.get_bottom_by_range(51,75)
 
-        b25 = b50 = b75 = p25 = p50 = p75 = 0
+        b25 = b50 = b75 = p25 = p50 = p75 = 0.0
 
         dbquarry = self.dbGameInt.get_by_team(self.team)
 
         for i in dbquarry:
-            temp = self.get_winner(i)[0]
-            winner = temp[0]
-            loser = temp[1]
-            if winner == self.team:
-                for j in top25:
-                    if (loser == j.team_name):
-                        b25 += 1
-                for j in top26to50:
-                    if (loser == j.team_name):
-                        b50 += 1
-                for j in top51to75:
-                    if (loser == j.team_name):
-                        b75 += 1
+            temp = self.get_winner(i)
+            if temp != None:
+                winner = temp[0]
+                loser = temp[1]
+                #print(loser)
+                if winner == self.team:
+                    for j in top25:
+                        if (loser == j.team_name):
+                            b25 += 1
+                    for j in top26to50:
+                        if (loser == j.team_name):
+                            b50 += 1
+                    for j in top51to75:
+                        if (loser == j.team_name):
+                            b75 += 1
 
-            if loser == self.team:
-                for j in bottom25:
-                    if (winner == j.team_name):
-                        p25 += 1
-                for j in bottom26to50:
-                    if (winner == j.team_name):
-                        p50 += 1
-                for j in bottom51to75:
-                    if (winner == j.team_name):
-                        p75 += 1
+                if loser == self.team:
+                    for j in bottom25:
+                        if (winner == j.team_name):
+                            p25 += 1
+                    for j in bottom26to50:
+                        if (winner == j.team_name):
+                            p50 += 1
+                    for j in bottom51to75:
+                        if (winner == j.team_name):
+                            p75 += 1
 
-        temp = self.dbRPIInt.get_by_team(self.team)[0]
-        #print("we upading with :",self.bonus)
-        temp.bonus = b25+b50+b75
-        temp.penalty = p25+p50+p75
-        temp.save()
+            temp = self.dbRPIInt.get_by_team(self.team)[0]
+            #print("we upading with :",self.bonus)
+            temp.bonus = (b25*0.0026)+(b50*0.002)+(b75*0.0013)
+            temp.penalty = (p25*0.0026)+(p50*0.002)+(p75*0.0013)
+            #temp.adj_rpi = (temp.rpi+temp.bonus+temp.penalty)
+            temp.save()
 
-        print('b25: ',b25,'b50: ',b50,'b75: ',b75,'p25: ',p25,'p50: ',p50,'p75: ',p75)
+            #print('b25: ',b25,'b50: ',b50,'b75: ',b75,'p25: ',p25,'p50: ',p50,'p75: ',p75)
 
 
 
