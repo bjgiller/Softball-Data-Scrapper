@@ -9,6 +9,9 @@ class DB_Game_Interface:
     def get_by_date_start_time(self,date_start_time):
         return Game_Info.objects.filter(date_start_time=date_start_time)
 
+    def get_by_date_start_time_team(self,team,date_start_time):
+        return Game_Info.objects.filter(Q(date_start_time=date_start_time) & (Q(team=team) | Q(opp_team=team)))
+
     def get_by_team(self,team):
         return Game_Info.objects.filter(Q(team=team) | Q(opp_team=team))
 
@@ -42,7 +45,7 @@ class DB_Game_Interface:
             score2 = dict.get(team2)
             date_start_time = dict.get("date_start_time")
 
-            print(team1 + "|" + score1 + "|" + team2 + "|" + score2)
+            #print(team1 + "|" + score1 + "|" + team2 + "|" + score2)
 
             self._add_to_db(team1,team2,score1,score2,date_start_time,False)
 

@@ -35,15 +35,20 @@ def TeamStatistics(request):
         db.create_teams_from_dict(wts.get_team_info())
 
         db = DB_Game_Interface()
-        #RPI_Calculation("Arkansas")
-        ws = Web_Scraping(14,4,2019)
+        
+        ws = Web_Scraping(26,5,2018)
+        db.create_games_from_list(ws.get_game_list())
         #print(ws.get_pre_game_list())
 
-        #ws = Past(1,2,2019,None,10,2,2019)
+        #ws = Past(2,2,2018,None,2,8,2018)
+        #RPI_Calculation("Washington")
+        #RPI_Calculation("Kansas")
+        #RPI_Calculation("Duke")
+        #RPI_Calculation("Wisconsin")
         '''
         for i in db.get_all_teams():
             RPI_Calculation(i)'''
-        latest_team_list = db.get_by_team("Arkansas")
+        latest_team_list = db.get_by_team("Arkansas").order_by('-date_start_time')
         template = loader.get_template('TeamStatistics.html')
         context = {
             'team_name' : "Arkansas",

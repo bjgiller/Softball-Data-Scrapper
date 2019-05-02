@@ -57,11 +57,16 @@ class Web_Scraping:
         self.pre_games = self.html.findAll("div",{"class":"gamePod gamePod-type-game status-pre"})
         self.nostart = self.html.findAll("div",{"class":"gamePod gamePod-type-game status-nostart"})
         self.pre_games = self.pre_games + self.nostart
-        print(self.pre_games)
+        #print(self.pre_games)
 
 
         self.game_list = []
+        temp_list = []
         for i in self.games:
+            check = False
+            discript = i.findAll("span",{"class","game-round"})
+            if (len(discript) > 0):
+                check = True
             teams = i.findAll("span",{"class":"gamePod-game-team-name"})
             scores = i.findAll("span",{"class":"gamePod-game-team-score"})
             for j in range(len(teams)):
@@ -73,19 +78,24 @@ class Web_Scraping:
                 for k in range(len(teams)):
                     game_dict.update({teams[k]:scores[k]})
                 game_dict.update({"date_start_time":self.date_start_time})
-            self.game_list.append(game_dict)
+            game_dict.update({"check":check})
+            temp_list.append(game_dict)
 
+        for i in temp_list:
+            print()
+
+        self.game_list = temp_list
         self.game_list_incomplete = []
-        print(self.pre_games)
+        #print(self.pre_games)
         for i in self.pre_games:
             teams = i.findAll("span",{"class":"gamePod-game-team-name"})
             scores = i.findAll("span",{"class":"gamePod-game-team-score"})
             for j in range(len(teams)):
                 teams[j] = teams[j].getText()
-                print(teams[j])
+                #print(teams[j])
             for j in range(len(scores)):
                 scores[j] = scores[j].getText()
-                print(scores[j])
+                #print(scores[j])
             if len(teams) == len(scores):
                 game_dict = {}
                 for k in range(len(teams)):
@@ -93,7 +103,7 @@ class Web_Scraping:
                 game_dict.update({"date_start_time":self.date_start_time})
             self.game_list_incomplete.append(game_dict)
 
-        print(self.game_list_incomplete)
+        #print(self.game_list_incomplete)
 
     def get_game_list(self):
         return self.game_list
