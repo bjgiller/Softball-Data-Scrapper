@@ -16,7 +16,9 @@ class Team_RPI(models.Model):
     owp = models.FloatField(default=(-1))
     oowp = models.FloatField(default=(-1))
     bonus = models.FloatField(default=(-1))
+    penalty = models.FloatField(default=(-1))
     rpi = models.FloatField(default=(-1))
+    adj_rpi = models.FloatField(default=(-1))
 
     def __str__(self):
         return self.team_name

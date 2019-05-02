@@ -10,10 +10,16 @@ class DB_RPI_Interface:
         return Team_RPI.objects.filter(team_name=team)
 
     def get_top(self,numb):
-        return Team_RPI.objects.all().order_by('-rpi')[:numb]
+        return Team_RPI.objects.all().order_by('-rpi')[:numb-1]
+
+    def get_top_by_range(self,bottom,top):
+        return Team_RPI.objects.all().order_by('-rpi')[bottom-1:top-1]
 
     def get_bottom(self,numb):
-        return Team_RPI.objects.all().order_by('rpi')[:numb]
+        return Team_RPI.objects.all().order_by('rpi')[:numb-1]
+
+    def get_bottom_by_range(self,bottom,top):
+        return Team_RPI.objects.all().order_by('rpi')[bottom-1:top-1]
 
     def create_single_rating_info(self,team,wp,owp,oowp,bonus,rpi):
         self._add_to_db(team,wp,owp,oowp,bonus,rpi,True)

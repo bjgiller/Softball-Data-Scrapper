@@ -61,6 +61,8 @@ class Web_Scraping:
 
 
         self.game_list = []
+        temp_list_check_false = []
+        temp_list_check_true = []
         temp_list = []
         for i in self.games:
             check = False
@@ -78,12 +80,17 @@ class Web_Scraping:
                 for k in range(len(teams)):
                     game_dict.update({teams[k]:scores[k]})
                 game_dict.update({"date_start_time":self.date_start_time})
-            game_dict.update({"check":check})
-            temp_list.append(game_dict)
+            if (check == False):
+                temp_list_check_false.append(game_dict)
+            if (check == True):
+                temp_list_check_true.append(game_dict)
 
-        for i in temp_list:
-            print()
+        temp_list = temp_list_check_true.copy()
 
+        for i in temp_list_check_false:
+            if i not in temp_list_check_true:
+                temp_list.append(i)
+        #print(temp_list)
         self.game_list = temp_list
         self.game_list_incomplete = []
         #print(self.pre_games)
